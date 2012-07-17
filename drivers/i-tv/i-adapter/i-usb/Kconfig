@@ -1,0 +1,7 @@
+# 
+# USB adapter configurations
+#
+
+config iTV_ADAPTER_USB
+	tristate "USB adapter for usb connectable devices"
+	depends on iTV_ADAPTER && USB

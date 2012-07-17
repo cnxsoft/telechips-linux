@@ -1,0 +1,31 @@
+#
+# iTV device configuration
+#
+
+menu "iTV multimedia devices"
+	depends on HAS_IOMEM
+
+comment "iTV core support"
+
+#
+# iTV Core
+#
+config iTV_CORE
+	tristate "iTV for Linux"
+
+source "drivers/i-tv/i-platform/Kconfig"
+
+source "drivers/i-tv/i-adapter/Kconfig"
+
+comment "Module"
+	depends on iTV_CORE
+
+menuconfig iTV_MODULE
+	bool "Module configurations"
+	depends on iTV_CORE
+	default y
+
+source "drivers/i-tv/i-demux/Kconfig"
+source "drivers/i-tv/i-frontend/Kconfig"
+
+endmenu

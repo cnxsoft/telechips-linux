@@ -1,0 +1,10 @@
+# 
+# Platform configurations
+#
+
+config iTV_PLATFORM
+	tristate
+	depends on iTV_CORE
+	default iTV_CORE
+
+source "drivers/i-tv/i-platform/i-telechips/Kconfig"

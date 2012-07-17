@@ -1,0 +1,64 @@
+if ARCH_TCC88XX
+
+comment "TCC Board Type"
+
+config MACH_TCC8800
+	bool "TCC8800 evaluation board"
+	depends on ARCH_TCC88XX
+	help
+	  Support for the TCC8800 evaluation board. Say Y here if you
+	  have such a device.
+
+
+config MACH_M801_88
+	bool "M801 board"
+	depends on ARCH_TCC88XX
+	help
+	  Support for the TCC8800 evaluation board. Say Y here if you
+	  have such a device.
+
+config MACH_M803
+        bool "M803 board"
+        depends on ARCH_TCC88XX
+        help
+          Support for the TCC8800 evaluation board. Say Y here if you
+          have such a device.
+
+config MACH_TCC8800ST
+	bool "TCC8800ST board"
+	depends on ARCH_TCC88XX
+	help
+	  Support for the TCC8800ST evaluation board. Say Y here if you
+	  have such a device.
+
+config CPU_HIGHSPEED
+    bool "CPU high-speed clock"
+    depends on ARCH_TCC88XX
+    default n
+    help
+     Support for the TCC88xx demo board, Say Y here if you
+     want to overclocking
+
+config GPIO_CORE_VOLTAGE_CONTROL
+	bool "Ctrl coreA/B voltage by gpio ports"
+	depends on CPU_FREQ_DEFAULT_GOV_ONDEMAND && !REGULATOR
+	default n
+	help
+	  Support for the TCC880X demo board.
+
+config TCC_STB_MODE
+	bool "TCC STB Mode"
+        default n
+	help
+	  Support for the TCC93/88/8910 demo board, Say Y here if you STB
+	  It change the memory configuration
+
+config TCC_OUTPUT_STARTER
+        bool "TCC OUTPUT show boot logo image on HDMI/CVBS/Component"
+        depends on ARCH_TCC88XX
+        default n
+        help
+          Support for the TCC93/88/8910 demo board, Say Y here if you want
+          to show boot logo by using HDMI/CVBS/Component output
+
+endif

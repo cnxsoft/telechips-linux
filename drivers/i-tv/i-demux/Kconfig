@@ -1,0 +1,19 @@
+# 
+# Demux module configurations
+#
+
+comment "Demux"
+	depends on iTV_MODULE
+
+menuconfig iTV_DEMUX_MODULE
+	bool "Demux module configurations"
+	depends on iTV_MODULE
+	default iTV_MODULE
+
+if iTV_DEMUX_MODULE
+
+config iTV_DEMUX_MODULE_TS
+	tristate "Enable TS demux module"
+	default iTV_CORE
+
+endif	# iTV_DEMUX_MODULE

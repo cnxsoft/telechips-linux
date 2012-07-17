@@ -1,0 +1,134 @@
+#
+# Synopsys DWC OTG Controller Drivers
+#       for Telechips System-on-Chips
+#
+
+comment "Telechips DWC OTG Controller Drivers"
+	depends on ARCH_TCC
+
+config TCC_DWC_OTG
+	tristate "Telechips DWC OTG support"
+	---help---
+	  Telechips USB OTG Controller driver. 
+	  Synopsys DesignWare Hi-Speed USB On-The-Go (OTG) Core used on the Telechips SoC.
+	select USB_OTG
+
+#---------------------------------------------------------------
+# Telechips DWC OTG Controller 0
+#---------------------------------------------------------------
+config TCC_DWC_OTG0
+	depends on TCC_DWC_OTG
+	bool "Telechips DWC OTG Controller 0"
+	---help---
+	  If you say Y here, the DWC OTG system will use Controller 0.
+
+
+#---------------------------------------------------------------
+# Telechips DWC OTG Controller 1
+#---------------------------------------------------------------
+config TCC_DWC_OTG1
+	depends on TCC_DWC_OTG && (MACH_TCC9300 || MACH_TCC9300CM || MACH_TCC9300ST)
+	bool "Telechips DWC OTG Controller 1"
+	---help---
+	  If you say Y here, the DWC OTG system will use Controller 0.
+
+#---------------------------------------------------------------
+# DWC_OTG Mode
+#---------------------------------------------------------------
+choice
+	prompt "Telechips DWC OTG driver version"
+	depends on TCC_DWC_OTG
+	default TCC_DWC_OTG_V281A
+	help
+	  Select DWC_OTG driver version.
+	  In case of TCC93X, default version is v2.81a. 
+
+config TCC_DWC_OTG_V281A
+	bool "DWC_OTG V2.81a"
+	help
+	  dwc_otg driver version 2.81a
+
+endchoice
+
+choice
+	prompt "Telechips DWC OTG mode"
+	depends on TCC_DWC_OTG
+	depends on !(TCC_DWC_OTG0 && TCC_DWC_OTG1)
+	default TCC_DWC_OTG_DUAL_ROLE
+	help
+	  Select Telechips DWC OTG mode, 
+	  OTG Dual-role or OTG Host only or OTG Device only mode.
+
+config TCC_DWC_OTG_DUAL_ROLE
+	bool "OTG Dual-role mode"
+	select USB_GADGET
+	help
+	  Telechips DWC OTG Dual-role mode driver.	
+
+config TCC_DWC_OTG_DEVICE_ONLY
+	bool "OTG Device only mode"
+	select USB_GADGET
+	help
+	  Telechips DWC OTG Device _only_ mode driver.
+
+config TCC_DWC_OTG_HOST_ONLY
+	bool "OTG Host only mode"
+	help
+	  Telechips DWC OTG Host _only_ mode driver.
+
+endchoice
+
+choice
+	prompt "Telechips DWC OTG mode"
+	depends on TCC_DWC_OTG
+	depends on TCC_DWC_OTG0 && TCC_DWC_OTG1
+	default TCC_DWC_OTG_2PORT_0OTG_1GADGET
+	help
+	  Select Telechips DWC OTG mode, 
+	  OTG Dual-role or OTG Host only or OTG Device only mode.
+
+config TCC_DWC_OTG_2PORT_0OTG_1HOST
+	bool "Controller0 OTG, Controller1 Host"
+	select USB_GADGET
+	help
+	  DWC OTG Controller0 is Dual-role mode.
+	  DWC OTG Controller1 is Host only mode.
+
+config TCC_DWC_OTG_2PORT_0HOST_1OTG
+	bool "Controller0 Host, Controller1 OTG"
+	select USB_GADGET
+	help
+	  DWC OTG Controller0 is Host only mode.
+	  DWC OTG Controller1 is Dual-role mode.
+
+endchoice
+
+#---------------------------------------------------------------
+# Misc
+#---------------------------------------------------------------
+config TCC_DWC_OTG_DEBUG
+	depends on TCC_DWC_OTG
+	bool "Enable debugging messages"
+	default n
+	help
+	  This enables Telechips DWC OTG debugging.
+ 
+config TCC_DWC_HS_ELECT_TST
+	depends on TCC_DWC_OTG
+	bool "Embedded High-speed Host Electrical Test Procedure"
+	default n
+	help
+	  Enable "Embedded High-speed Host Electrical Test Procedure"
+	  To facilitate complicance testing, host controllers, hubs, 
+	  and high-speed capable functions must support this test modes.
+	  This test was described in Section 7.1.20 of [USB2.0]
+
+#---------------------------------------------------------------
+# USB-to-SATA
+#---------------------------------------------------------------
+config TCC_USB_TO_SATA
+	depends on MACH_TCC8920ST
+	bool "Telechips USB-to-SATA support"
+	default n
+	help
+	  This enables SATA interface by using USB-to-SATA chip in TCC892x STB solution.

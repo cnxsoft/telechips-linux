@@ -1,0 +1,6 @@
+menuconfig GPS
+	bool "GPS Driver"
+
+config GPS_JGR_SC3_S
+	bool "GPS JGR SC3 S Module"
+	depends on GPS

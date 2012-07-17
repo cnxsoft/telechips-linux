@@ -1,0 +1,54 @@
+config MALI_GPU
+	tristate "Mali GPU device driver"
+	depends on FB && ARM
+	---help---
+	  Device driver for ARM Mali-200 and Mali-400 GPUs.
+
+config GPU_BUS_SCALING
+	bool "Use GPU bus scaling"
+	default n
+	depends on MALI_GPU
+	---help---
+	   Use GPU bus scaling for Mali GPU
+
+config MALI_OS_MEMORY
+	bool "Use OS memory"
+	default y
+	depends on MALI_GPU
+	---help---
+	   Use OS memory for Mali GPU
+
+config MALI_MEMORY_SIZE
+	int "Mali memory size"
+	default 300
+	depends on MALI_GPU
+	----help---
+	    Memory size for Mali GPU
+
+config MALI_UMP
+	tristate "UMP device driver"
+	depends on MALI_GPU
+	default y
+	---help---
+	  Device driver for ARM Unified Memory Provider (UMP).
+
+config UMP_OS_MEMORY
+	bool "Use OS memory"
+	default y
+	depends on MALI_UMP
+	---help---
+	   Use OS memory for UMP
+
+config UMP_MEMORY_ADDRESS
+	int "UMP memory address"
+	default 0
+	depends on MALI_UMP
+	---help---
+	   Memory address for UMP
+
+config UMP_MEMORY_SIZE
+	int "UMP memory size"
+	default 48
+	depends on MALI_UMP
+	---help---
+	   Memory size for UMP in MB

@@ -1,0 +1,110 @@
+
+config SND_SOC_TCC
+	tristate "SoC Audio for the Telechips TCC chip"
+	depends on (ARCH_TCC92XX || ARCH_TCC93XX || ARCH_TCC88XX || ARCH_TCC892X) && SND_SOC
+	help
+	  Say Y or M if you want to add support for codecs attached to
+	  the TCC I2S interface. You will also need
+	  to select the audio interfaces to support below.
+	  
+config SND_SOC_TCC_BOARD_WM8731
+	bool "WM8731"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_WM8731
+	depends on SND_SOC_TCC && (MACH_TCC9300 || MACH_TCC9300CM || MACH_TCC8800 || MACH_TCC8900 || MACH_TCC9201 || MACH_TCC8920) 
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (WM8731).
+
+config SND_SOC_TCC_BOARD_WM8750
+	bool "WM8750"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_WM8750
+	depends on SND_SOC_TCC && MACH_TCC9200S
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (WM8750).	  
+
+config SND_SOC_TCC_BOARD_WM8524
+        bool "WM8524"
+        select SND_SOC_TCC_I2S
+        select SND_SOC_WM8524
+        depends on SND_SOC_TCC && (MACH_TCC9300ST || MACH_TCC8800ST || MACH_TCC8920ST)
+        help
+          Say Y if you want to add support for SoC audio on Telechips
+          TCC (WM8524).
+
+config SND_SOC_TCC_BOARD_WM8988
+	bool "WM8988"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_WM8988
+	depends on SND_SOC_TCC && (MACH_M57TE || MACH_M801_88 || MACH_M803 || MACH_TCC9200 || MACH_TCC9201 || MACH_TCC8900 || MACH_M805_892X)
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (WM8988).
+
+config SND_SOC_TCC_BOARD_WM8993
+	bool "WM8993"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_WM8993
+	depends on SND_SOC_TCC && MACH_TCC9300
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (WM8993).	  
+
+config SND_SOC_TCC_BOARD_ES8388
+	bool "ES8388"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_ES8388
+	depends on SND_SOC_TCC && (MACH_M801_88 || MACH_M805_892X)
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (ES8388).
+
+config SND_SOC_TCC_BOARD_WM8994
+	bool "WM8994"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_WM8994
+	depends on SND_SOC_TCC && MACH_TCC9300
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (WM8994).	  
+
+config SND_SOC_TCC_MULTICHANNEL
+	bool "TCC MultiChannel"
+	select SND_SOC_TCC_I2S
+	depends on SND_SOC_TCC && (MACH_TCC8800 || MACH_TCC8800ST || MACH_TCC9300ST || MACH_TCC8920 || MACH_TCC8920ST)
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC.	  
+	 
+config SND_SOC_TCC_BOARD_RT5625
+	bool "RT5625"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_RT5625
+	depends on SND_SOC_TCC && (MACH_M801_88 || MACH_M805_892X)
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (RT5625).
+
+config SND_SOC_TCC_BOARD_RT5633
+	bool "RT5633"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_RT5633
+	depends on SND_SOC_TCC && (MACH_M801_88 || MACH_M805_892X)
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (RT5633).
+	  
+config SND_SOC_TCC_BOARD_RT5631
+	bool "RT5631"
+	select SND_SOC_TCC_I2S
+	select SND_SOC_RT5631
+	depends on SND_SOC_TCC && (MACH_M801_88 || MACH_M805_892X)
+	help
+	  Say Y if you want to add support for SoC audio on Telechips
+	  TCC (RT5631).		  
+
+config SND_SOC_TCC_I2S
+	tristate
+

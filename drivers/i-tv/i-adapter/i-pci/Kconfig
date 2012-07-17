@@ -1,0 +1,7 @@
+# 
+# PCI adapter configurations
+#
+
+config iTV_ADAPTER_PCI
+	tristate "PCI adapter for pci connectable devices"
+	depends on iTV_ADAPTER && PCI

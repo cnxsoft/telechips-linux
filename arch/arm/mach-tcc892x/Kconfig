@@ -1,0 +1,206 @@
+if ARCH_TCC892X
+
+choice
+	prompt "TCC892x Board(Machine) Type"
+	default MACH_TCC8920
+	depends on ARCH_TCC892X
+	help
+	  Select TCC892x board type.
+
+config MACH_TCC8920
+	bool "TCC8920 evaluation board"
+	help
+	  Support for the TCC8920 evaluation board. Say Y here if you
+	  have such a device.
+
+config MACH_TCC8920ST
+	bool "TCC8920 STB evaluation board"
+	help
+	  Support for the TCC8924 evaluation board. Say Y here if you
+	  have such a device.
+
+config MACH_M805_892X
+	bool "M805_TCC8923 board"
+	help
+	  Support for the TCC8923 M805 board. Say Y here if you
+	  have such a device.
+endchoice
+
+choice
+	prompt "M805S_TCC892x Chipset Type"
+	default TCC8923_0XA
+	depends on MACH_M805_892X
+	help
+	  Select M805S_TCC892x Chipset type.
+
+config M805S_8923_0XX
+	bool "TCC8923_0XX Chipset"
+	depends on MACH_M805_892X
+	help
+	  Support for the TCC8923-0XX chipset.
+
+config M805S_8923_0XA
+	bool "TCC8923_0XA Chipset"
+	depends on MACH_M805_892X
+	help
+	  Support for the TCC8923-0XA chipset.
+
+config M805S_8925_0XX
+	bool "TCC8925_0XX Chipset"
+	depends on MACH_M805_892X
+	help
+	  Support for the TCC8925-0XX chipset.
+endchoice
+
+choice
+	prompt "TCC892x Chipset Wafer Type"
+	default TCC892X_SS
+	help
+	  Select TC892x Chipset Wafer Type.
+
+config TCC892X_SS
+	bool "TCC892X_SS"
+ 	help
+	  Support for the TCC892X_SS.
+
+config TCC892X_NN
+	bool "TCC892X_NN"
+ 	help
+	  Support for the TCC892X_NN.
+endchoice
+
+choice
+	prompt "TCC892x STB Board"
+	default STB_BOARD_EV
+	depends on MACH_TCC8920ST
+	help
+	  Select TCC892x STB Board Type.
+
+config STB_BOARD_EV
+	bool "TCC8920 STB evalution board"
+	depends on MACH_TCC8920ST
+	help
+	  Support for TCC8920 STB Base Board.
+
+config STB_BOARD_HDB892S
+	bool "TCC8920 HDB892S board"
+	depends on MACH_TCC8920ST
+	help
+	  Support for TCC8920 HD892S Board.
+
+config STB_BOARD_HDB892F
+        bool "TCC8920 HDB892F board"
+        depends on MACH_TCC8920ST
+        help
+          Support for TCC8925 HD892F Board.
+
+config STB_BOARD_DONGLE
+	bool "TCC8925 HDMI dongle board"
+	depends on MACH_TCC8920ST
+	help
+	  Support for TCC8925 HDMI Dongle Board.
+
+config STB_BOARD_ISDBT_MODULE
+	bool "TCC8925 ISDBT Module board"
+	depends on MACH_TCC8920ST
+	help
+	  Support for TCC8925 ISDBT Module board.
+endchoice
+
+choice
+	prompt "TCC892x MiniSTB Clock Mode"
+	default HDB892X_CLOCK_NORMAL_SPEED
+	depends on (STB_BOARD_HDB892S || STB_BOARD_HDB892F)
+	help
+	  Select the Clock Mode of TCC8925 HDMI Dongle Board.
+
+config HDB892X_CLOCK_HIGH_SPEED
+	bool "High Speed Mode"
+	depends on (STB_BOARD_HDB892S || STB_BOARD_HDB892F)
+	help
+	  Support High Speed Mode for TCC892x HDB892x Board.
+
+config HDB892X_CLOCK_NORMAL_SPEED
+	bool "Normal Speed Mode"
+	depends on (STB_BOARD_HDB892S || STB_BOARD_HDB892F)
+	help
+	  Support Normal Speed Mode for TCC8925 HDB892x Board.
+endchoice
+
+choice
+	prompt "TCC892x HDMI Dongle Clock Mode"
+	default HDMI_DONGLE_CLOCK_NORMAL_SPEED
+	depends on STB_BOARD_DONGLE
+	help
+	  Select the Clock Mode of TCC8925 HDMI Dongle Board.
+
+config HDMI_DONGLE_CLOCK_HIGH_SPEED
+	bool "High Speed Mode"
+	depends on STB_BOARD_DONGLE
+	help
+	  Support High Speed Mode for TCC8925 HDMI Dongle Board.
+
+config HDMI_DONGLE_CLOCK_NORMAL_SPEED
+	bool "Normal Speed Mode"
+	depends on STB_BOARD_DONGLE
+	help
+	  Support Normal Speed Mode for TCC8925 HDMI Dongle Board.
+endchoice
+
+choice
+	prompt "TCC892x HDMI Dongle WiFi Chip"
+	default HDMI_DONGLE_WIFI_REALTEK
+	depends on STB_BOARD_DONGLE
+	help
+	  Select WiFi Chip of TCC8925 HDMI Dongle Board.
+
+config HDMI_DONGLE_WIFI_ARTHEROS
+	bool "Artheros AR6102/6103"
+	depends on STB_BOARD_DONGLE
+	help
+	  Support Artheros AR6102/6103 for TCC8925 HDMI Dongle Board.
+
+config HDMI_DONGLE_WIFI_REALTEK
+	bool "Realtek RTL8188/8189"
+	depends on STB_BOARD_DONGLE
+	help
+	  Support Realtek RTL8188/8189 for TCC8925 HDMI Dongle Board.
+
+config HDMI_DONGLE_WIFI_BROADCOM
+	bool "Broadcom BCM4330"
+	depends on STB_BOARD_DONGLE
+	help
+	  Support Broadcom BCM4330 for TCC8925 HDMI Dongle Board.
+endchoice
+
+config CPU_HIGHSPEED
+    bool "CPU high-speed clock"
+    depends on ARCH_TCC892X
+    default n
+    help
+     Support for the TCC892x demo board, Say Y here if you
+     want to overclocking
+
+config GPIO_CORE_VOLTAGE_CONTROL
+	bool "Ctrl coreA/B voltage by gpio ports"
+	depends on CPU_FREQ_DEFAULT_GOV_ONDEMAND && !REGULATOR
+	default n
+	help
+	  Support for the TCC892X demo board.
+
+config TCC_STB_MODE
+	bool "TCC STB Mode"
+        default n
+	help
+	  Support for the TCC93/88/8920 demo board, Say Y here if you STB
+	  It change the memory configuration
+
+config TCC_OUTPUT_STARTER
+        bool "TCC OUTPUT show boot logo image on HDMI/CVBS/Component"
+        depends on ARCH_TCC892X
+        default n
+        help
+          Support for the TCC93/88/8920 demo board, Say Y here if you want
+          to show boot logo by using HDMI/CVBS/Component output
+
+endif

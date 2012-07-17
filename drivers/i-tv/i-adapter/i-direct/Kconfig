@@ -1,0 +1,9 @@
+# 
+# Direct adapter configurations
+#
+
+config iTV_ADAPTER_DIRECT
+	tristate "Direct adapter for i2c controlled devices"
+	depends on iTV_ADAPTER && I2C
+	default iTV_CORE
+

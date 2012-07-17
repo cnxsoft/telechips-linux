@@ -1,0 +1,255 @@
+config FB_TCC
+	bool "Telechips TCC Frame buffer support"
+	depends on FB && (ARCH_TCC92XX || ARCH_TCC88XX || ARCH_TCC93XX || ARCH_TCC892X)
+	default y
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+
+	help
+	  Framebuffer driver for Telechips TCC series.
+
+	  If unsure, say N.
+
+config TCC_LCDC_CONTROLLER
+	bool "Telechips TCC support LCDC controller"
+	depends on FB && (ARCH_TCC92XX || ARCH_TCC88XX || ARCH_TCC93XX)
+	default y
+
+	help
+	  TCC LCD controller 
+	
+	  If unsure, say N.
+
+config TCC_VIOC_CONTROLLER
+	bool "Telechips TCC support VIOC controller"
+	depends on FB && (ARCH_TCC892X)
+	default y
+
+	help
+	  TCC VIOC controller 
+
+	  If unsure, say N.
+
+
+config FB_TCC_USE_VSYNC_INTERRUPT
+	bool "Use VSYNC interrupt"
+	depends on FB_TCC && FB_TCC
+
+config USE_EXT_INTERRUPT
+	bool "Use external-vsync-interrupt"
+	depends on FB_TCC_USE_VSYNC_INTERRUPT && ARCH_TCC92XX
+	default y
+
+	
+config TCC_HDMI_DRIVER
+	bool "Use TCC HDMI function"
+	default y
+
+config TCC_HDMI_VIDEO_UI_DISABLE
+	bool "HDMI UI disable during video play"
+	depends on (ARCH_TCC88XX && !MACH_TCC8800ST)
+	default n
+
+choice
+	prompt  "HDMI FB ROTATE DISPLAY"
+	depends on TCC_HDMI_DRIVER
+	default HDMI_FB_ROTATE_0
+
+config HDMI_FB_ROTATE_0
+	bool 'HDMI FB DISPLAY 0 degree'
+
+config HDMI_FB_ROTATE_90
+	bool 'HDMI FB DISPLAY 90 degree'
+
+config HDMI_FB_ROTATE_180
+	bool 'HDMI FB DISPLAY 180 degree'
+
+config HDMI_FB_ROTATE_270
+	bool 'HDMI FB DISPLAY 270 degree'
+
+endchoice
+
+
+config FB_TCC93XX
+    bool "TCC93xx Frame buffer support"
+	depends on FB && ARCH_TCC93XX
+	default y
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+
+	help
+	  Framebuffer driver for Telechips TCC93xx series.
+
+	  If unsure, say N.
+
+config FB_TCC_OVERLAY
+	tristate "Overlay for Camera/Video"
+	depends on FB && ARCH_TCC
+	help
+	  This is the Overlay device driver
+
+config FB_TCC_OVERLAY_EXT
+	tristate "Overlay_ext for Camera/Video"
+	depends on FB && ARCH_TCC
+	help
+	  This is the Overlay_ext device driver to support 2-channel overlay.
+
+config FB_TCC_COMPOSITE
+    tristate "Composite(Y+Pb+Pr) Output for UI/Video"
+	depends on FB && ARCH_TCC
+	help
+	  This is the Composite device driver
+
+config FB_TCC_COMPONENT
+    tristate "Component(Y/Pb/Pr) Output for UI/Video"
+	depends on FB && ARCH_TCC
+	help
+	  This is the Component device driver
+
+config TCC_OUTPUT_AUTO_DETECTION
+    bool "Auto-Detection of HDMI/Composite/Component Output"
+	depends on FB && (MACH_TCC9300ST || MACH_TCC8800ST || MACH_TCC8920ST)
+	default n
+	help
+	  HDMI/Composite/Component output can be detected automatically.
+
+config TCC_OUTPUT_ATTACH
+    bool "Attach Additional Output for Dual Display"
+	depends on FB && MACH_TCC8920ST
+	default n
+	help
+	  Composite or Component output can be attached to HDMI output.
+
+choice
+	prompt "Select Attach Mode"
+	depends on TCC_OUTPUT_ATTACH
+	default OUTPUT_ATTACH_DUAL
+
+config OUTPUT_ATTACH_DUAL
+	bool 'Dual Mode'
+config OUTPUT_ATTACH_DUAL_AUTO
+	bool 'Auto-Dual Mode'
+config OUTPUT_ATTACH_HDMI_CVBS
+	bool 'HDMI/CVBS Mode'
+endchoice
+
+config TCC_OUTPUT_3D_UI
+    bool "Support 3D(SBS/TNB) UI Display for MKV 3D files"
+	depends on FB && MACH_TCC8920ST
+	default n
+	help
+	  UI will be devided in horizontal/vertical direction according to 3D mode.
+
+config TCC_VIDEO_DISPLAY_BY_VSYNC_INT
+    bool "Displaying video frame by hw vsync interrupt"
+	depends on FB && (ARCH_TCC93XX || ARCH_TCC88XX || ARCH_TCC892X)
+	default n
+	help
+	  Video frame is displayed by hw vsync interrupt.
+
+config TCC_VIDEO_DISPLAY_DEINTERLACE_MODE
+    bool "Support Interlaced Video"
+	depends on TCC_VIDEO_DISPLAY_BY_VSYNC_INT
+	default y
+	help
+	  It makes the interlaced video can be displayed smoothly.
+
+config TCC_EXCLUSIVE_UI_LAYER
+    bool "Exclusive UI Layer for Specific UI"
+	depends on FB && (MACH_TCC9300ST || MACH_TCC8800ST)
+	default n
+	help
+	  Video Frame is displayed with Specific UI data.
+
+config TCC_OUTPUT_DUAL_UI
+    bool "Dual UI for HDMI/Composite/Component Output"
+	depends on FB && MACH_TCC8800ST
+	default n
+	help
+	  Video Frame is displayed with Specific UI data.
+
+config TCC_FB_HIGH_CLOCK
+    bool "FB limit clock high"
+	depends on FB
+	default n
+	help
+	  FB limit clock chage to high when big size LCD module use.
+
+menu "Support for LCD panels"
+
+config LCD_LMS350DF01
+	bool "Samsung LMS350DF01 LCD support"
+	depends on FB_TCC
+
+config LCD_LMS480KF01
+	bool "Samsung LMS480KF01 LCD support"
+	depends on FB_TCC
+
+config LCD_DX08D11VM0AAA
+	bool "Hitachi DX08D11VM0AAA LCD support"
+	depends on FB_TCC
+
+config LCD_LB070WV6
+	bool "LG PHILIPS LB070WV6 LCD support"
+	depends on FB_TCC
+
+config LCD_CLAA104XA01CW
+	bool "CPT CLAA104XA01CW LCD support"
+	depends on FB_TCC
+
+config LCD_HT121WX2
+	bool "Hyundai-BOEhydis HT121WX2 LCD support"
+	depends on FB_TCC
+
+config LCD_TD043MGEB1
+	bool "TPO TD043MGEB1 LCD support"
+	depends on FB_TCC
+
+config LCD_AT070TN93
+	bool "INNOLUX AT070TN93 LCD support"
+	depends on FB_TCC
+
+config LCD_TD070RDH
+	bool "SHANGHAI AVIC OPTOELECTRONICS TD070RDH LCD support"
+	depends on FB_TCC
+
+
+config LCD_HDMI1280X720
+	bool "HDMI 1280x720 LCD support"
+	depends on FB_TCC
+
+config LCD_N101L6
+	bool "CHI MED 1024x600 LCD support"
+	depends on FB_TCC
+
+config LCD_TW8816
+	bool "TW8816 LCD support"
+	depends on FB_TCC && (MACH_MOBIS)
+
+config LCD_CLAA102NA0DCW
+	bool "CPT 1024 * 600 LVDS support"
+	depends on FB_TCC
+
+config LCD_ED090NA
+	bool "CHIMEI INNOLUX 1280 * 800 LVDS support"
+	depends on FB_TCC
+
+config LCD_KR080PA2S
+	bool "EMDOOR 1024 * 768 LVDS support"
+        depends on FB_TCC
+
+config LCD_CLAA070NP01
+	bool "COBY CHUNGWHA 1024 * 600 LVDS support"
+	depends on FB_TCC
+
+config LCD_HV070WSA
+	bool "COBY BOE 1024 * 600 LVDS support"
+	depends on FB_TCC
+
+config LCD_LCDC0_USE
+	bool "platform LCDC is use LCD control 0"
+	depends on FB_TCC
+
+endmenu

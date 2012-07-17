@@ -1,0 +1,40 @@
+#
+#Telechips
+#
+config TCC_GMAC
+	tristate "Telechips 10/100/1000 Ethernet Driver"
+	depends on ARCH_TCC88XX || ARCH_TCC93XX || ARCH_TCC892X
+	select CRC32
+	select MII 
+	---help---
+	  Support for Telechips TCC9300 10/100/1000 Ethernet Driver
+
+config TCC_GMAC_DA
+    bool "Rx has priority over Tx"
+    depends on TCC_GMAC
+    default y
+
+choice
+    prompt "Phy Interface"
+    depends on TCC_GMAC
+    default TCC_GMAC_RGMII_MODE
+    help 
+        Select TCC_GMAC Phy Interface Mode
+config TCC_GMAC_MII_MODE
+    bool "MII"
+    help 
+        Select MII Phy Interface Mode
+config TCC_GMAC_GMII_MODE
+    bool "GMII"
+    help 
+        Select GMII Phy Interface Mode
+config TCC_GMAC_RGMII_MODE
+    bool "RGMII"
+    help 
+        Select RGMII Phy Interface Mode
+endchoice
+
+config TCC_GMAC_SET_MAC_FROM_CHIP
+    bool "Mac address is set by reading TCC Chip ID"
+    depends on TCC_GMAC
+    default n

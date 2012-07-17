@@ -1,0 +1,15 @@
+# 
+# Adapter configurations
+#
+
+comment "Adapter"
+	depends on iTV_CORE
+
+menuconfig iTV_ADAPTER
+	bool "Adapter configurations"
+	depends on iTV_CORE
+	default y
+
+source "drivers/i-tv/i-adapter/i-direct/Kconfig"
+source "drivers/i-tv/i-adapter/i-pci/Kconfig"
+source "drivers/i-tv/i-adapter/i-usb/Kconfig"

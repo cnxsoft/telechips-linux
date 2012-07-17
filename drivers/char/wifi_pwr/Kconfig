@@ -1,0 +1,2 @@
+config WIFI_PWR_CTL
+	bool "Wi-Fi power  control"

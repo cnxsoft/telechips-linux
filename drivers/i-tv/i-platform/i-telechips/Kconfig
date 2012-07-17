@@ -1,0 +1,8 @@
+# 
+# Telechips platform configrations
+#
+
+config iTV_PLATFORM_TCCXXXX
+	tristate
+	depends on iTV_PLATFORM && ARCH_TCC
+	default iTV_PLATFORM

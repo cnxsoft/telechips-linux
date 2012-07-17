@@ -1,0 +1,204 @@
+config VIDEO_TCCXX_CAMERA
+	tristate "Telechips TCCXXX Camera support (EXPERIMENTAL)"
+	select VIDEOBUF_GEN
+	select VIDEOBUF_DMA_SG
+	select VIDEOBUF_VMALLOC
+	depends on VIDEO_DEV
+	help
+	  V4L2 camera driver support for TCCXXX.
+
+config VIDEO_ENABLE_CAMERA_WITH_MAX_CLK
+	tristate "Enable Camera with max-clock"
+	depends on VIDEO_TCCXX_CAMERA
+	help
+	   Operate camera with max-clock regardless of DVFS.
+
+config VIDEO_CAMERA_SENSOR
+        tristate "CAMERA sensor support"
+        depends on VIDEO_TCCXX_CAMERA
+        help
+           camera sensor support
+
+config VIDEO_DUAL_CAMERA_SUPPORT
+	tristate "Enable Telechips Dual-Camera"
+	depends on VIDEO_CAMERA_SENSOR
+	help
+	   tcc dual-camera suport
+
+config VIDEO_DUAL_BACK_CAMERA_SUPPORT
+	tristate "Select Telechips Back-Camera"
+	depends on VIDEO_DUAL_CAMERA_SUPPORT
+	help
+	   tcc dual-camera suport
+	
+config VIDEO_CAMERA_SENSOR_MT9P111
+	tristate "MT9P111 5MP-sensor support"
+	depends on VIDEO_DUAL_BACK_CAMERA_SUPPORT
+	help
+	   camera sensor support for 5MP		
+
+config VIDEO_CAMERA_SENSOR_MT9T111
+        tristate "MT9T111 3MP-sensor support"
+        depends on VIDEO_DUAL_BACK_CAMERA_SUPPORT
+        help
+           camera sensor support for 3MP
+config VIDEO_CAMERA_SENSOR_S5K5CAGA
+        tristate "S5K5CAGA 3MP-sensor support"
+        depends on VIDEO_DUAL_BACK_CAMERA_SUPPORT
+        help
+           camera sensor support for 3MP
+ 
+config VIDEO_CAMERA_SENSOR_MT9D112
+        tristate "MT9D112 2MP-sensor support"
+        depends on VIDEO_DUAL_BACK_CAMERA_SUPPORT
+        help
+           camera sensor support for 2MP
+	   
+config VIDEO_DUAL_FRONT_CAMERA_SUPPORT
+	tristate "Select Telechips Front-Camera"
+	depends on VIDEO_DUAL_CAMERA_SUPPORT
+	help
+	   tcc dual-camera suport
+
+#config VIDEO_CAMERA_SENSOR_MT9D112
+#        tristate "MT9D112 2MP-sensor support"
+#        depends on VIDEO_DUAL_FRONT_CAMERA_SUPPORT
+#        help
+#           camera sensor support for 2MP
+	   
+config VIDEO_CAMERA_SENSOR_MT9M113
+ tristate "MT9M113 1.3MP-sensor support"
+ depends on VIDEO_DUAL_FRONT_CAMERA_SUPPORT
+ help
+    camera sensor support for 1.3MP
+
+config VIDEO_CAMERA_SENSOR_SR130PC10
+ tristate "SR130PC10 1.3MP-sensor support"
+ depends on VIDEO_DUAL_FRONT_CAMERA_SUPPORT
+ help
+    camera sensor support for 1.3MP
+config VIDEO_CAMERA_SENSOR_OV7690
+        tristate "OV7690 VGA-sensor support"
+        depends on VIDEO_DUAL_FRONT_CAMERA_SUPPORT
+        help
+           camera sensor support for VGA
+
+config VIDEO_CAMERA_SENSOR_SIV100B
+        tristate "SIV100B VGA-sensor support"
+        depends on VIDEO_DUAL_FRONT_CAMERA_SUPPORT
+        help
+           camera sensor support for VGA
+
+config VIDEO_SINGLE_CAMERA_SUPPORT
+	tristate "Enable Telechips Single-Camera"
+	depends on VIDEO_CAMERA_SENSOR
+	help
+	   tcc dual-camera suport
+	   
+config VIDEO_CAMERA_SENSOR_MT9D112
+	tristate "MT9D112 2MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 2MP
+
+config VIDEO_CAMERA_SENSOR_SIV100B
+        tristate "SIV100B VGA-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for VGA
+
+config VIDEO_CAMERA_SENSOR_OV3640
+	tristate "OV3640 3MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 3MP
+
+config VIDEO_CAMERA_SENSOR_S5K4BAFB
+	tristate "S5K4BAFB 2MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 2MP
+
+config VIDEO_CAMERA_SENSOR_MV9317
+	tristate "MV9317 3MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 3MP
+
+config VIDEO_CAMERA_SENSOR_MT9P111
+	tristate "MT9P111 5MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 5MP	  
+
+config VIDEO_CAMERA_SENSOR_MT9T111
+        tristate "MT9T111 3MP-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for 3MP
+
+config VIDEO_CAMERA_SENSOR_MT9T113
+        tristate "MT9T113 3MP-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for 3MP
+
+config VIDEO_CAMERA_SENSOR_S5K5CAGA
+        tristate "S5K5CAGA 3MP-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for 3MP
+config VIDEO_CAMERA_SENSOR_SR130PC10
+        tristate "SR130PC10 1.3MP-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for 1.3MP
+config VIDEO_CAMERA_SENSOR_AIT848_ISP
+	tristate "AIT848_ISP 5MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 5MP
+
+config VIDEO_CAMERA_SENSOR_AIT848_FWDN_EN
+	tristate "FirmWare Download support"
+	depends on VIDEO_CAMERA_SENSOR && VIDEO_CAMERA_SENSOR_AIT848_ISP
+	help
+	   camera sensor support for 5MP	  
+
+config VIDEO_CAMERA_SENSOR_ISX006
+        tristate "ISX006 5MP-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for 5MP
+
+config VIDEO_CAMERA_SENSOR_GT2005	
+	tristate "GT2005 2MP-sensor support"
+	depends on VIDEO_SINGLE_CAMERA_SUPPORT
+	help
+	   camera sensor support for 2MP
+
+config VIDEO_CAMERA_SENSOR_OV7690
+        tristate "OV7690 VGA-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for VGA
+
+config VIDEO_CAMERA_NEXTCHIP_TEST           
+        tristate "NEXTCHIP_TEST support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for NEXTCHIP_TEST
+
+config VIDEO_CAMERA_SENSOR_MT9M113
+        tristate "MT9M113 1.3MP-sensor support"
+        depends on VIDEO_SINGLE_CAMERA_SUPPORT
+        help
+           camera sensor support for 1.3MP
+
+config USE_ISP
+	tristate "ISP support"
+	depends on VIDEO_TCCXX_CAMERA
+	help
+	   camera sensor support
+
+source drivers/media/video/tcccam/atv/Kconfig

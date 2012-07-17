@@ -1,0 +1,272 @@
+if ARCH_TCC
+
+choice
+	prompt "TCC Processor Family"
+config ARCH_TCC88XX
+	bool "TCC88xx"
+	select AEABI
+	select ARCH_HAS_CPUFREQ
+	select CPU_V7
+	select VFP
+	select NEON
+	select HAVE_CLK
+	select ARM_L1_CACHE_SHIFT_6
+	select GENERIC_GPIO
+	select ARCH_REQUIRE_GPIOLIB
+	select GENERIC_TIME
+	select GENERIC_CLOCKEVENTS
+
+config ARCH_TCC892X
+	bool "TCC892x"
+	select AEABI
+	select ARCH_HAS_CPUFREQ
+	select CPU_V7
+	select VFP
+	select NEON
+	select HAVE_CLK
+	select GENERIC_GPIO
+	select ARCH_REQUIRE_GPIOLIB
+	select GENERIC_TIME
+	select GENERIC_CLOCKEVENTS
+
+endchoice
+
+choice
+	prompt "TCC88xx series"
+	depends on ARCH_TCC88XX
+	default TCC8801
+
+config TCC8801
+	bool "TCC8801"
+
+config TCC8803
+	bool "TCC8803"
+
+endchoice
+
+comment "DRAM Settings"
+
+config MEM_CLK_SYNC_MODE
+	bool "Memory clock Synchronous mode"
+	depends on ARCH_TCC93XX
+	default n
+	help
+	  It's used for generating memory bus clock
+	  in synchronous clock mode.
+
+choice
+	prompt "DRAM Memory Type"
+	default DRAM_DDR2
+	help
+	  Select DRAM Type.
+
+config DRAM_MDDR
+	bool "DRAM mDDR(LPDDR)"
+
+config DRAM_LPDDR2
+	bool "DRAM LPDDR2"
+
+config DRAM_DDR2
+	bool "DRAM DDR2"
+
+config DRAM_DDR3
+	bool "DRAM DDR3"
+
+endchoice
+
+choice
+	bool "DRAM Memory Size"
+	default TCC_MEM_256MB
+	help
+	  System memory size.
+
+config TCC_MEM_1024MB
+	bool "1024MB"
+
+config TCC_MEM_512MB
+	bool "512MB"
+
+config TCC_MEM_256MB
+	bool "256MB"
+
+config TCC_MEM_128MB
+	bool "128MB"
+
+endchoice
+
+choice
+	bool "DRAM BandWidth"
+	depends on (DRAM_DDR2 && ARCH_TCC92XX) || (DRAM_DDR3 && ARCH_TCC892X)
+	default DRAM_32BIT_USED
+	help
+	  select DRAM BandWidth.
+
+config DRAM_16BIT_USED
+	bool "16Bit"
+
+config DRAM_32BIT_USED
+	bool "32Bit"
+
+endchoice
+
+choice
+  bool "mDDR (LPDDR) settings"
+  depends on DRAM_MDDR
+  default MDDR_H5MS1G62MFP
+
+config MDDR_H5MS1G62MFP
+  bool "Hynix H5MS1G62MFP (166MHz)"
+
+config MDDR_K4X1G163PE
+  bool "Samsung K4X1G163PE (200MHz)"
+
+config MDDR_EHD013091MA60
+  bool "ELPIDA EHD013091MA-60 (166MHz)"
+
+config MDDR_MT46H64M32LF
+  bool "MICRON MT46H64M32LF (166MHz)"
+
+endchoice
+
+choice
+  bool "LPDDR2 settings"
+  depends on DRAM_LPDDR2
+  default LPDDR2_K4P4G324EB_AGC1
+
+config LPDDR2_K4P4G324EB_AGC1
+  depends on TCC_MEM_512MB
+  bool "SAMSUNG K4P4G324EB AGC1"
+
+endchoice
+
+choice
+  bool "DDR2 settings"
+  depends on DRAM_DDR2
+  default DDR2_HXB18T2G160AF
+
+config DDR2_K4T1G164QQ
+  bool "Samsung K4T1G164QQ"
+
+config DDR2_K4T1G164QF_BCE7
+  bool "Samsung K4T1G164QF-BCE7"
+
+config DDR2_HY5PS1G1631CFPS6
+  bool "Hynix HY5PS1G1631C FP-S6"
+
+config DDR2_HY5PS1G831CFPS6
+  bool "Hynix HY5PS1G831C FP-S6"
+
+config DDR2_HXB18T2G160AF
+  bool "SCSemicon HXB18T2G160AF-25D"
+
+config DDR2_E1108AEBG
+  bool "ELPIDA E1108AEBG"
+
+config DDR2_E2116ABSE
+  bool "ELPIDA E2116ABSE"
+
+config DDR2_MT47H128M8
+  bool "Micron MT47H128M8"
+
+config DDR2_K4T1G164QE_HCF7
+  bool "Samsung K4T1G164QE-HCF7"
+
+config DDR2_K4T1G084QF_BCE7
+  bool "Samsung K4T1G084QF-BCE7"
+
+config DDR2_CT83486C1
+  bool "Chipsip CT83486C1"
+
+config DDR2_MT47H256M8EB25E
+  depends on TCC_MEM_1024MB
+  bool "Micron MT47H256M8EB-25E"
+
+endchoice
+
+choice
+  bool "DDR3 settings"
+  depends on DRAM_DDR3
+  default DDR3_K4B1G1646E_HCH9
+
+config DDR3_K4B2G1646C_HCK0
+  bool "Samsung K4B2G1646C-HCK0"
+
+config DDR3_K4B1G1646E_HCH9
+  bool "Samsung K4B1G1646E-HCH9"
+
+config DDR3_H5TQ2G63BFR_H9C
+  bool "Hynix DDR3_H5TQ2G63BFR-H9C"
+
+config DDR3_H5TQ2G63BFR_PBC
+  bool "Hynix DDR3_H5TQ2G63BFR-PBC"
+
+config DDR3_H5TQ1G83BFR_H9C
+  bool "Hynix DDR3_H5TQ1G83BFR_H9C"
+
+config DDR3_H5TQ2G83BFR_H9C
+  bool "Hynix DDR3_H5TQ2G83BFR_H9C"
+
+config DDR3_H5TQ2G83BFR_PBC
+  bool "Hynix DDR3_H5TQ2G83BFR_PBC"
+
+config DDR3_IN5CB256M8BN_CG
+  bool "Innoways IN5CB256M8BN_CG"
+
+config DDR3_NT5CB256M8GN_CG
+  bool "Nanya NT5CB256M8GN_CG"
+
+config DDR3_H5TC4G83MFR_H9A
+  bool "Hynix DDR3_H5TC4G83MFR_H9A"
+
+endchoice
+
+choice
+	prompt "RTC circuit configration"
+	depends on ARCH_TCC88XX
+	default TCC88XX_RTC_EXTERNAL_PATH
+	help
+	  If RTC_PMWKUP and GPIO(C28) is connected, select <TCC88XX RTC external path>.
+	  If you choose <TCC88XX RTC external path>, Shut-down mode will be used at SUSPEND status.
+	  In other case, Sleep mode will be used at SUSPEND status.
+	  The current consumption of Shut-down mode is less than Sleep mode.
+	  In other words, RTC_PMWKUP and GPIO(C28) should be connected on your circuit to select <TCC88XX RTC external path>.
+
+config TCC88XX_RTC_INTERNAL_PATH
+	bool "TCC88XX RTC internal path"
+	help
+	  If there is no circuit for RTC, select <TCC88XX RTC internal path>.
+config TCC88XX_RTC_EXTERNAL_PATH
+	bool "TCC88XX RTC external path"
+	help
+	  If RTC_PMWKUP and GPIO(C28) is connected, select <TCC88XX RTC external path>.
+
+endchoice
+
+config TCC_ECID_SUPPORT
+	bool "TCC ECID(CPU ID) SUPPORT"
+        default n
+	help
+	  Support for the TCCXXXX demo board, Say Y here if you use ECID
+
+endif
+
+
+if ARCH_TCC_926
+
+menu "Telechips ARM926-based CPUs"
+choice
+	prompt "Telechips CPU type:"
+	default ARCH_TCC8K
+
+config ARCH_TCC8K
+	bool TCC8000
+	select USB_ARCH_HAS_OHCI
+	help
+	  Support for Telechips TCC8000 systems
+
+endchoice
+
+source "arch/arm/mach-tcc8k/Kconfig"
+
+endmenu
+endif

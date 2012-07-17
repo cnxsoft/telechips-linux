@@ -1,0 +1,71 @@
+config VIDEO_TCCXX_ATV
+	tristate "Telechips TCCXXX Analog TV support (EXPERIMENTAL)"
+	select VIDEOBUF_GEN
+	select VIDEOBUF_DMA_SG
+	select VIDEOBUF_VMALLOC
+	depends on VIDEO_DEV
+	help
+	  V4L2 Analog TV driver support for TCCXXX.
+	
+config VIDEO_ATV_SENSOR
+	tristate "ATV sensor support"
+	depends on VIDEO_TCCXX_ATV
+	help
+	   atv sensor support
+
+config VIDEO_ATV_SENSOR_RDA5888
+	tristate "RDA5888 ATV-sensor support"
+	depends on VIDEO_ATV_SENSOR
+	help
+	   atv sensor support for rda5888
+
+config VIDEO_ATV_SENSOR_TVP5150
+        tristate "TVP5150 ATV-sensor support"
+        depends on VIDEO_ATV_SENSOR
+        help
+           atv sensor support for TVP5150
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

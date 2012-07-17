@@ -1,0 +1,67 @@
+# 
+# Frontend and Tuner module configurations
+#
+
+comment "Frontend"
+	depends on iTV_MODULE
+
+menuconfig iTV_FRONTEND_MODULE
+	bool "Frontend module configurations"
+	depends on iTV_MODULE
+	default iTV_MODULE
+
+if iTV_FRONTEND_MODULE
+
+comment "Demodulators"
+
+menuconfig iTV_FE_DEMOD_MODULE
+	bool "Demodulator module configurations"
+	default iTV_FRONTEND_MODULE
+
+if iTV_FE_DEMOD_MODULE
+
+comment "ATSC"
+
+config iTV_FE_DEMOD_MODULE_S5H1411
+	tristate "Enable S5H1411 demodulator module"
+	depends on iTV_FRONTEND_MODULE
+	default iTV_CORE
+
+config iTV_FE_DEMOD_MODULE_LGDT3305
+	tristate "Enable LGDT3305 demodulator module"
+	depends on iTV_FRONTEND_MODULE
+	#default iTV_CORE
+
+endif	# iTV_FE_DEMOD_MODULE
+
+comment "Tuners"
+
+menuconfig iTV_FE_TUNER_MODULE
+	bool "Tuner module configurations"
+	default iTV_FRONTEND_MODULE
+
+if iTV_FE_TUNER_MODULE
+
+config iTV_FE_TUNER_MODULE_XC5000
+	tristate "Enable XC5000 tuner module"
+	depends on iTV_FRONTEND_MODULE
+	default iTV_CORE
+
+config iTV_FE_TUNER_MODULE_XC5000C
+	tristate "Enable XC5000C tuner module"
+	depends on iTV_FRONTEND_MODULE
+	#default iTV_CORE
+
+config iTV_FE_TUNER_MODULE_FQD1136
+	tristate "Enable FQD1136 tuner module"
+	depends on iTV_FRONTEND_MODULE
+	#default iTV_CORE
+
+config iTV_FE_TUNER_MODULE_FJ2148
+	tristate "Enable FJ2148 tuner module"
+	depends on iTV_FRONTEND_MODULE
+	#default iTV_CORE
+
+endif	# iTV_FE_TUNER_MODULE
+
+endif	# iTV_FRONTEND_MODULE
